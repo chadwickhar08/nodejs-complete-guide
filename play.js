@@ -8,4 +8,7 @@ const summarizeUser = (userName, userAge, userHasHobby) => {
 
 }
 
+const addOne = (a) => {return a + 1;}
+
 console.log(summarizeUser(name, age, hasHobbies));
+console.log(addOne(1));
