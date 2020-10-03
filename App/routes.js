@@ -1,9 +1,8 @@
-const http = require('http');
+
 const fs = require('fs');
 
-const server = http.createServer((req,res) => {
+const requestHandler = (req, res) => {
 
-    //console.log(req.url, req.method, req.headers);
     const url = req.url;
     const method = req.method;
 
@@ -14,25 +13,26 @@ const server = http.createServer((req,res) => {
         res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</input></form></body>');
         res.write('</html>');
         return res.end();
-
-
+    
+    
     }
-
+    
     if(url === "/message" && method ==="POST"){
         const body = [];
         req.on('data', (chunk) => {
             console.log(chunk);
             body.push(chunk);
         });
-        req.on('end', () => {
+        return req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
-            fs.writeFileSync('message.txt', message);
-        });
+            fs.writeFile('message.txt', message, err => {
+                res.statusCode = 302;
+                res.setHeader('Location', '/');
+                return res.end();
+            });
+        });      
         
-        res.statusCode = 302;
-        res.setHeader('Location', '/');
-        return res.end();
     }
     res.setHeader('Content-Type', 'text/html');
     res.write('<html>');
@@ -41,6 +41,7 @@ const server = http.createServer((req,res) => {
     res.write('</html>');
     res.end();
 
-});
+};
 
-server.listen(3000);
+module.exports = requestHandler;
+
