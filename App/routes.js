@@ -30,10 +30,12 @@ const requestHandler = (req, res) => {
                 res.statusCode = 302;
                 res.setHeader('Location', '/');
                 return res.end();
+                
             });
         });      
         
     }
+
     res.setHeader('Content-Type', 'text/html');
     res.write('<html>');
     res.write('<head><title>My First Webpage</title></head>');
@@ -43,5 +45,9 @@ const requestHandler = (req, res) => {
 
 };
 
-module.exports = requestHandler;
+// module.exports = {handler: requestHandler,
+//                   someText: "Some text."};
+
+exports.handler = requestHandler;
+exports.someText = "Some text.";
 
