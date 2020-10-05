@@ -10,6 +10,7 @@ const app = express();
 app.set('view engine', 'ejs');
 //app.set('view engine', 'pug');
 app.set('views', 'views');
+app.set('view options', {layout: 'main-layout.ejs'});
 
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
