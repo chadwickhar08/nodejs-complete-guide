@@ -1,25 +1,26 @@
-const express = require("express");
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+const users = [];
 
 app.set('view engine', 'pug');
 app.set('views', 'views');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/users', (req, res, next) => {
+    res.render('users', { pageTitle: 'User', users: users });
+  });
+
 app.get('/', (req, res, next) => {
-    res.render();
-});
-
-app.get('/users', (req, res, next) => {
-    res.render();
-});
-
-app.get('/users', (req, res, next) => {
-    res.render();
+  res.render('index', { pageTitle: 'Add User' });
 });
 
 app.post('/add-user', (req, res, next) => {
-    res.redirect('/users');
+  users.push({ name: req.body.username });
+  res.redirect('/users');
 });
-
 
 app.listen(3000);
