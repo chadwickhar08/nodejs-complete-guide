@@ -16,14 +16,16 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-    const products = Product.fetchAll();
-    console.log(products);
-    //console.log('shop.js', adminData.products);
-    //const products = adminData.products;
-    res.render('shop', {prods: products, docTitle: "Shop", 
+    const products = Product.fetchAll((products) => {
+        res.render('shop', {prods: products, docTitle: "Shop", 
     path: '/', 
     hasProducts: products.length > 0, 
     activeShop: true,
     productCSS: true});
+    });
+    //console.log(products);
+    //console.log('shop.js', adminData.products);
+    //const products = adminData.products;
+    
     //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
   };
