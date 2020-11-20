@@ -1,5 +1,3 @@
-//const products = [];
-
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
@@ -14,18 +12,3 @@ exports.postAddProduct = (req, res, next) => {
     //console.log(product);
     res.redirect('/');
 };
-
-exports.getProducts = (req, res, next) => {
-    Product.fetchAll((products) => {
-        res.render('shop/product-list', {prods: products, docTitle: "Shop", 
-    path: '/', 
-    hasProducts: products.length > 0, 
-    activeShop: true,
-    productCSS: true});
-    });
-    //console.log(products);
-    //console.log('shop.js', adminData.products);
-    //const products = adminData.products;
-    
-    //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-  };
