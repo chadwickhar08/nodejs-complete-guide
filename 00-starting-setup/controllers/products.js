@@ -1,4 +1,6 @@
-const products = [];
+//const products = [];
+
+const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
     res.render('add-product', {docTitle: "Add Product", path: '/admin/add-product', productCSS: true, formCSS: true, activeAddProduct: true});
@@ -6,11 +8,16 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-    products.push({title:req.body.title});
+    //products.push({title:req.body.title});
+    const product = new Product(req.body.title);
+    product.save();
+    console.log(product);
     res.redirect('/');
 };
 
 exports.getProducts = (req, res, next) => {
+    const products = Product.fetchAll();
+    console.log(products);
     //console.log('shop.js', adminData.products);
     //const products = adminData.products;
     res.render('shop', {prods: products, docTitle: "Shop", 
