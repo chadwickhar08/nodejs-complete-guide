@@ -12,7 +12,7 @@ const app = express();
 app.set('view engine', 'ejs');
 //app.set('view engine', 'pug');
 app.set('views', 'views');
-app.set('view options', {layout: 'main-layout.ejs'});
+//app.set('view options', {layout: 'main-layout.ejs'});
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
