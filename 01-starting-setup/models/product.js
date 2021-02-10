@@ -18,6 +18,7 @@ module.exports = class Product {
     this.imageUrl = imageUrl;
     this.description = description;
     this.price = price;
+    //adding a comment to update git repo
   }
 
   save() {
