@@ -38,7 +38,7 @@ module.exports = class Product {
   }
 
   static findById(id, cb) {
-
+    return db.execute('SELECT * FROM products2 WHERE products2.id = ?', [id]);
    
   }
 };
