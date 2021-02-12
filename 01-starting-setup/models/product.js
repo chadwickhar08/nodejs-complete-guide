@@ -22,8 +22,10 @@ module.exports = class Product {
   }
 
   save() {
-    db.execute('INSERT INTO products2 (id, title, price, description, imageUrl) VALUES (?, ?, ?, ?)',
-    [this.id, this.title, this.price, this.description, this.imageUrl]);
+    return db.execute('INSERT INTO products2 (title, price, description, imageUrl) VALUES (?, ?, ?, ?)',
+    [this.title, this.price, this.description, this.imageUrl]
+    
+    );
   }
 
   static deleteById(id) {
