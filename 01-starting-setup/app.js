@@ -25,6 +25,10 @@ const { postAddProduct } = require('./controllers/admin');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//GIT SYNC CHANGE
+//Syncing with Github
+
+
 app.use((req, res, next) => {
 
     User.findByPk(1).then(user => {
