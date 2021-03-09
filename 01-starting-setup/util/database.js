@@ -11,9 +11,21 @@
 
 // module.exports = pool.promise();
 
-const Sequelize = require('sequelize');
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-const sequelize = new Sequelize('node-complete', 'user1', 'greenR08!', {dialect: 'mysql', host: 'localhost'});
+const mongoConnect = () => {
 
-module.exports = sequelize;
+    MongoClient.connect('mongodb+srv://tipper86:tipper86@cluster0.mh6ur.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    .then(client => { 
+        console.log('Connected!'); 
+        callback(client);
+    })
+    .catch(err => { console.log(err); });
+
+
+};
+
+module.exports = mongoConnect;
+
 
