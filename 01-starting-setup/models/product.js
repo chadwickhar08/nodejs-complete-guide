@@ -53,7 +53,7 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = id;
+    this._id = new mongodb.ObjectId(id);
   }
 
   save() {
@@ -62,7 +62,7 @@ class Product {
     if (this._id) {
 
       // Update the product
-    dbOp = db.collection('products').updateOne({_id: new mongodb.ObjectId(this._id)}, {$set: this});
+    dbOp = db.collection('products').updateOne({_id: this._id }, {$set: this});
 
     } else {
 
@@ -110,6 +110,20 @@ class Product {
     })
     .catch(err => {});
       console.log(err);
+  }
+
+  static deleteById(prodId) {
+    const db = getDb();
+    return db
+    .collection('products')
+    .deleteOne({_id: new mongodb.ObjectId(prodId)})
+    .then(result => {
+      console.log('Deleted');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
   }
 
 }
