@@ -89,53 +89,62 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
 
   const prodId = req.body.productId;
-  let fetchedCart;
-  let newQuantity = 1;
+  Product.findById(prodId).then(product => {
 
-  req.user.getCart().then(cart => {
-    fetchedCart = cart;
-    return cart.getProducts({where: {id: prodId}});
+    return req.user.addToCart(product);
 
-  }).then(products => {
-    let product;
+  }).then(result => {
 
-    if(products.length > 0){
+    console.log(result);
+
+  });
+  // let fetchedCart;
+  // let newQuantity = 1;
+
+  // req.user.getCart().then(cart => {
+  //   fetchedCart = cart;
+  //   return cart.getProducts({where: {id: prodId}});
+
+  // }).then(products => {
+  //   let product;
+
+  //   if(products.length > 0){
 
     
-    product = products[0];
+  //   product = products[0];
 
-    }
+  //   }
   
-    if (product) {
+  //   if (product) {
 
-      const oldQuantity = product.cartItem.quantity;
-      newQuantity = oldQuantity + 1;
-      return product;
-      // return fetchedCart.addProduct(product, {
-      //   through: { quantity: newQuantity }
-      }
+  //     const oldQuantity = product.cartItem.quantity;
+  //     newQuantity = oldQuantity + 1;
+  //     return product;
+  //     // return fetchedCart.addProduct(product, {
+  //     //   through: { quantity: newQuantity }
+  //     }
 
-      return Product.findByPk(prodId);
+  //     return Product.findByPk(prodId);
 
-    // return Product.findByPk(prodId).then(product => {
+  //   // return Product.findByPk(prodId).then(product => {
 
-    //   return fetchedCart.addProduct(product, { through: { quantity: newQuantity}});
+  //   //   return fetchedCart.addProduct(product, { through: { quantity: newQuantity}});
 
-    // }).catch(err => console.log(err));
+  //   // }).catch(err => console.log(err));
 
-  }).then(product => {
+  // }).then(product => {
 
-    return fetchedCart.addProduct(product, {
+  //   return fetchedCart.addProduct(product, {
 
-      through: { quantity: newQuantity }
+  //     through: { quantity: newQuantity }
 
-    });
+  //   });
 
-  }).then(() => {
+  // }).then(() => {
 
-    res.redirect('/cart');
+  //   res.redirect('/cart');
 
-  }).catch(err => console.log(err));
+  // }).catch(err => console.log(err));
 
 };
 
