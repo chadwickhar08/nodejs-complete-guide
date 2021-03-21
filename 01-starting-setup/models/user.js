@@ -76,6 +76,26 @@ class User {
 
     }
 
+    addOrder() {
+
+        const db  = getDb();
+        
+
+        return db.collection('orders').insertOne(this.cart).then(result => {
+
+            this.cart = {items:[]};
+            const db = getDb();
+        return db
+        .collection('users')
+        .updateOne(
+            {_id: new ObjectId(this._id)},
+            {$set: {cart: {items: []}}}
+        );
+
+        });
+
+    }
+
     deleteItemFromCart(productId) {
 
         const updatedCartItems = this.cart.items.filter(item => {
