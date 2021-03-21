@@ -37,7 +37,7 @@ app.use((req, res, next) => {
     }).catch(err => {console.log(err);});
 
 });
-
+//Adding updated code.
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
