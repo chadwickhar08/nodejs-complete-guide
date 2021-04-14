@@ -79,6 +79,8 @@ class User {
     getOrders() {
 
         const db = getDb();
+        return db.collection('orders').find({'user._id': new ObjectId(this._id) })
+        .toArray();
         //return db.collection('orders').
         
 
@@ -87,7 +89,7 @@ class User {
     addOrder() {
 
         const db  = getDb();
-        this.getCart().then(products => {
+        return this.getCart().then(products => {
 
             const order = {
 
@@ -97,11 +99,9 @@ class User {
                     name: this.name
                 }
             };
-
-        });
-        
-
-        return db.collection('orders').insertOne(this.cart).then(result => {
+            return db.collection('orders').insertOne(order)
+        })
+        .then(result => {
 
             this.cart = {items:[]};
             const db = getDb();
