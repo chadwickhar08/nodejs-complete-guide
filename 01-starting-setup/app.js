@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const errorController = require('./controllers/error');
-//const mongoConnect = require('./util/database').mongoConnect;
+const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/user');
 
 
@@ -45,7 +45,7 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect('mongodb+srv://tipper86:tipper86@cluster0.mh6ur.mongodb.net/myFirstDatabase?retryWrites=true&w=majority').then(result => {
+mongoose.connect('mongodb+srv://tipper86:tipper86@cluster0.mh6ur.mongodb.net/shop2?retryWrites=true&w=majority').then(result => {
 
     app.listen(3000);
 
